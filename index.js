@@ -4,7 +4,7 @@ const { Circle, Triangle, Square } = require('./Lib/shapes');
 
 function promptUser() {
     inquirer
-        .promt([
+        .prompt([
             //Text display
             {
                 type: 'input',
