@@ -40,3 +40,38 @@ function promptUser() {
             }
         });
 }
+
+function writeToFile(fileName, responses) {
+    let svgString = '<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">';
+    svgString += '<g>';
+
+    let shapeChoice;
+    switch (responses.shape) {
+        case 'Circle':
+            shapeChoice = new Circle();
+            break;
+        case 'Triangle':
+            shapeChoice = new Triangle();
+            break;
+        case 'Square':
+            shapeChoice = new Square();
+            break;
+        default:
+            throw new Error('Invalid shape');
+    }
+
+    shapeChoice.setColor(responses.shapeColor);
+
+    svgString += shapeChoice.render();
+
+    svgString += `<text x="150" y="130" text-anchor="middle" font-size="45" fill="${responses.textColor}">${responses.text}</text>`;
+
+    svgString +="</g>";
+    svgString +="</svg>";
+
+    fs.writeFile(fileName, svgString, (err) => {
+        err ? console.log(err) : console.log("Generated logo.svg");
+    });
+}
+
+promptUser();
